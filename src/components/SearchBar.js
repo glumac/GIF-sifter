@@ -1,37 +1,27 @@
-import React from "react";
-import PropTypes from "prop-types";
-import axios from "axios";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 class SearchBar extends React.Component {
   searchRef = React.createRef();
 
   static propTypes = {
-    populateImageData: PropTypes.func
+    searchGifs: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
     // this.searchGifs();
   }
 
-  searchGifs = event => {
-    if (event) event.preventDefault();
-    
+  searchGifs = (event) => {
+    // TO DO: maybe pull this off of event, actually cleaner maybe
     const searchTerm = this.searchRef.current.value;
 
-    const updateImages = imagesData => this.props.populateImageData(imagesData);
+    this.props.searchGifs(searchTerm, event, true);
 
-    axios
-      .get(`https://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=dc6zaTOxFJmzC&limit=12`)
-      .then(function(response) {
-        // console.log(response);
-
-        updateImages(response.data.data);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  };
-
+    this.searchRef.current.focus();
+    this.searchRef.current.value = '';
+  }
+  
   render() {
     return (
       <form className="search-form" onSubmit={this.searchGifs}>

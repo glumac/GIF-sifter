@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import GifGridItem from "./GifGridItem";
+import React from 'react';
+import PropTypes from 'prop-types';
+import GifGridItem from './GifGridItem';
 
 class GifGrid extends React.Component {
   static propTypes = {

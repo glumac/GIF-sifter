@@ -4,10 +4,10 @@
   /* background: linear-gradient(20deg, rgb(219, 112, 147), #daa357); */
 }
 
-.app-logo {
+/* .app-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
-}
+} */
 
 .app-header {
   background-color: #222;
@@ -24,14 +24,18 @@
   font-size: large;
 }
 
-/* Search Form */
+/* Main */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
+/* Search Form */
 .search-form {
-  
   width: 90%;
   max-width: 500px;
   display: flex;
-  margin: 0 auto 40px;
+  margin: 0 auto;
   /* border: 1px solid red; */
   align-items: stretch;
 }
@@ -50,19 +54,43 @@
   color: #F4F2F4;
   padding: 8px;
   width: 120px;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
   margin-left: 5px;
   background: #222;
   cursor: pointer;
 }
 
+/* Search History */
+.search-history-ul {
+  display: flex;
+  align-content: center;
+  flex-direction: row-reverse;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 1.25rem 0;
+  box-sizing: border-box;
+  min-height: 76px;
+}
+
+.search-history-li {
+  font-size: 1rem;
+  padding: 8px;
+  border: 1px solid #bbb;
+  color: #bbb;
+  margin: 0 .25rem;
+  cursor: pointer;
+  
+}
+
+.search-history-li--current {
+  border: 1px solid #222;
+  color: #222;
+}
 
 /* Images Grid */
-
 .images-grid {
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 0 .5rem 40px;
   display: grid;
   grid-gap: .5rem;
@@ -74,10 +102,8 @@
 .images-grid-item {
   box-sizing: border-box;
   display: flex;
-  /* align-items: center; */
-  align-items: flex-start;
-  
- 
+  align-items: center;
+  background: #222;
 }
 
 .images-grid-item--image {
