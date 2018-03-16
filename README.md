@@ -1,6 +1,6 @@
 ## Gif Sifter
 
-You can find this project up and running online [here](https://silly-bose-4c1bf8.netlify.com/).
+You can find this project up and running online [here](https://gif-sifter.netlify.com//).
 
 To run this project locally in development mode, type the following command with your terminal pointed at the root directory: 
 
