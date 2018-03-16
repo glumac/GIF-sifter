@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 // import PropTypes from "prop-types";
-import SearchBar from './components/SearchBar';
-import SearchesList from './components/SearchesList'
-import GifGrid from './components/GifGrid';
+import SearchBar from './SearchBar';
+import SearchesList from './SearchesList'
+import GifGrid from './GifGrid';
 import axios from 'axios';
 // import logo from './logo.svg';
-import './App.css';
+import "../App.css";
 
 class App extends Component {
   state = {
