@@ -21,7 +21,7 @@ class SearchBar extends React.Component {
     const updateImages = imagesData => this.props.populateImageData(imagesData);
 
     axios
-      .get(`http://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=dc6zaTOxFJmzC&limit=12`)
+      .get(`https://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=dc6zaTOxFJmzC&limit=12`)
       .then(function(response) {
         // console.log(response);
 

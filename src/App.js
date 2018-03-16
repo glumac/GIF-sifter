@@ -29,7 +29,7 @@ class App extends Component {
     const updateImages = imagesData => this.populateImageData(imagesData);
 
     axios
-      .get(`http://api.giphy.com/v1/gifs/trending?&api_key=dc6zaTOxFJmzC&limit=12`)
+      .get(`https://api.giphy.com/v1/gifs/trending?&api_key=dc6zaTOxFJmzC&limit=12`)
       .then(function(response) {
         console.log(response.data.data);
 
