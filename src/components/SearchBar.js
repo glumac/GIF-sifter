@@ -9,7 +9,7 @@ class SearchBar extends React.Component {
   };
 
   componentDidMount() {
-    // this.searchGifs();
+    this.searchRef.current.focus();
   }
 
   searchGifs = (event) => {
