@@ -28,13 +28,6 @@ class AsyncApp extends Component {
     this.props.dispatch(fetchImagesIfNeeded(nextsearchTerm));
   };
 
-  handleRefreshClick = (e) => {
-    e.preventDefault();
-
-    const { dispatch, searchTerm } = this.props;
-    dispatch(fetchImagesIfNeeded(searchTerm));
-  };
-
   render() {
     const { searchTerm, images, searchTerms, isFetching} = this.props;
     return (
@@ -74,8 +67,6 @@ AsyncApp.propTypes = {
 };
 
 function mapStateToProps(state) {
-  console.log('state', state);
-
   const { searchTerm, imagesBySearchTerm, searchTerms } = state;
   const { isFetching, items: images } = imagesBySearchTerm[
     searchTerm
