@@ -1,27 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-class SearchBar extends React.Component {
+export default class SearchBar extends Component {
   searchRef = React.createRef();
-
-  static propTypes = {
-    searchGifs: PropTypes.func.isRequired,
-  };
 
   componentDidMount() {
     this.searchRef.current.focus();
   }
 
   searchGifs = (event) => {
-    // TO DO: maybe pull this off of event, actually cleaner maybe
+    event.preventDefault();
+    
     const searchTerm = this.searchRef.current.value;
 
-    this.props.searchGifs(searchTerm, event, true);
-
+    this.props.onSubmit(searchTerm);
     this.searchRef.current.focus();
     this.searchRef.current.value = '';
   }
-  
+
   render() {
     return (
       <form className="search-form" onSubmit={this.searchGifs}>
@@ -36,8 +32,11 @@ class SearchBar extends React.Component {
           Sift GIFs
         </button>
       </form>
+
     );
   }
 }
 
-export default SearchBar;
+SearchBar.propTypes = {
+  onSubmit: PropTypes.func.isRequired
+};
