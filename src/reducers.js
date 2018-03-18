@@ -37,19 +37,18 @@ function searchTerms(state = [], action) {
 function images(
   state = {
     isFetching: false,
-    didInvalidate: false,
     items: []
   },
   action
 ) {
   switch (action.type) {
     case REQUEST_IMAGES:
-      return { ...state, isFetching: true, didInvalidate: false };
+      return { ...state, isFetching: true };
     case RECEIVE_IMAGES:
       return {
         ...state,
         isFetching: false,
-        didInvalidate: false,
+  
         items: action.images
       };
     default:

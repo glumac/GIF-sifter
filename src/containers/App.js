@@ -5,7 +5,7 @@ import { enterSearchTerm, fetchImagesIfNeeded } from '../actions';
 import SearchBar from '../components/SearchBar';
 import SearchesList from '../components/SearchesList';
 import Images from '../components/Images';
-import Footer from '../components/Footer';
+import { Footer } from '../components/Footer';
 
 class AsyncApp extends Component {
   componentDidMount() {

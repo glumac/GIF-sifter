@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Footer = props => {
+export const Footer = props => {
   return (
     <footer className="app-footer">
       <span className="built-info">
@@ -26,5 +26,3 @@ const Footer = props => {
     </footer>
   );
 };
-
-export default Footer;
