@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  enterSearchTerm,
-  fetchImagesIfNeeded,
-} from '../actions';
+import { enterSearchTerm, fetchImagesIfNeeded } from '../actions';
 import SearchBar from '../components/SearchBar';
 import SearchesList from '../components/SearchesList';
 import Images from '../components/Images';
-import Footer from "../components/Footer";
+import Footer from '../components/Footer';
 
 class AsyncApp extends Component {
   componentDidMount() {
@@ -23,13 +20,13 @@ class AsyncApp extends Component {
     }
   }
 
-  handleSubmit = (nextsearchTerm) => {
+  handleSubmit = nextsearchTerm => {
     this.props.dispatch(enterSearchTerm(nextsearchTerm));
     this.props.dispatch(fetchImagesIfNeeded(nextsearchTerm));
   };
 
   render() {
-    const { searchTerm, images, searchTerms, isFetching} = this.props;
+    const { searchTerm, images, searchTerms, isFetching } = this.props;
     return (
       <div className="app">
         <header className="app-header">
@@ -46,16 +43,19 @@ class AsyncApp extends Component {
             />
 
             {isFetching && images.length === 0 && <h2>Loading...</h2>}
-            {!isFetching && images.length === 0 && <h2>Sorry, we came up empty!.</h2>}
+            {!isFetching &&
+              images.length === 0 && <h2>Sorry, we came up empty!.</h2>}
 
-            {images.length > 0 && <div style={{ opacity: isFetching ? 0.5 : 1 }}>
+            {images.length > 0 && (
+              <div style={{ opacity: isFetching ? 0.5 : 1 }}>
                 <Images images={images} />
-              </div>}
+              </div>
+            )}
           </div>
         </main>
         <Footer />
       </div>
-    )
+    );
   }
 }
 
@@ -68,9 +68,7 @@ AsyncApp.propTypes = {
 
 function mapStateToProps(state) {
   const { searchTerm, imagesBySearchTerm, searchTerms } = state;
-  const { isFetching, items: images } = imagesBySearchTerm[
-    searchTerm
-  ] || {
+  const { isFetching, items: images } = imagesBySearchTerm[searchTerm] || {
     isFetching: true,
     items: []
   };

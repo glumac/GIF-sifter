@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class SearchBar extends Component {
   searchRef = React.createRef();
@@ -8,15 +8,15 @@ export default class SearchBar extends Component {
     this.searchRef.current.focus();
   }
 
-  searchGifs = (event) => {
+  searchGifs = event => {
     event.preventDefault();
-    
+
     const searchTerm = this.searchRef.current.value;
 
     this.props.onSubmit(searchTerm);
     this.searchRef.current.focus();
     this.searchRef.current.value = '';
-  }
+  };
 
   render() {
     return (
@@ -32,7 +32,6 @@ export default class SearchBar extends Component {
           Sift GIFs
         </button>
       </form>
-
     );
   }
 }

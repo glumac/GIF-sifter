@@ -1,9 +1,5 @@
 import { combineReducers } from 'redux';
-import {
-  ENTER_SEARCH_TERM,
-  REQUEST_IMAGES,
-  RECEIVE_IMAGES
-} from './actions';
+import { ENTER_SEARCH_TERM, REQUEST_IMAGES, RECEIVE_IMAGES } from './actions';
 
 function searchTerm(state = '', action) {
   switch (action.type) {
@@ -21,9 +17,12 @@ function searchTerms(state = [], action) {
 
       if (!action.searchTerm) return searches;
 
-      const existingIndexCurrentSearchTerm = searches.indexOf(action.searchTerm);
+      const existingIndexCurrentSearchTerm = searches.indexOf(
+        action.searchTerm
+      );
 
-      if (existingIndexCurrentSearchTerm > -1) searches.splice(existingIndexCurrentSearchTerm, 1);
+      if (existingIndexCurrentSearchTerm > -1)
+        searches.splice(existingIndexCurrentSearchTerm, 1);
 
       searches.push(action.searchTerm);
 
@@ -45,9 +44,14 @@ function images(
 ) {
   switch (action.type) {
     case REQUEST_IMAGES:
-      return {...state, isFetching: true, didInvalidate: false };
+      return { ...state, isFetching: true, didInvalidate: false };
     case RECEIVE_IMAGES:
-      return {...state, isFetching: false, didInvalidate: false, items: action.images };
+      return {
+        ...state,
+        isFetching: false,
+        didInvalidate: false,
+        items: action.images
+      };
     default:
       return state;
   }
@@ -57,7 +61,10 @@ function imagesBySearchTerm(state = {}, action) {
   switch (action.type) {
     case RECEIVE_IMAGES:
     case REQUEST_IMAGES:
-      return {...state, [action.searchTerm]: images(state[action.searchTerm], action)};
+      return {
+        ...state,
+        [action.searchTerm]: images(state[action.searchTerm], action)
+      };
     default:
       return state;
   }

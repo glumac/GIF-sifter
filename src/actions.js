@@ -19,7 +19,7 @@ function requestImages(searchTerm) {
 }
 
 function receiveImages(searchTerm, json) {
-    return {
+  return {
     type: RECEIVE_IMAGES,
     searchTerm,
     images: json.data.map(image => image)
@@ -32,12 +32,16 @@ function fetchImages(searchTerm) {
 
     // Get images by searchTerm if we have one
     if (searchTerm) {
-      return fetch(`https://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=dc6zaTOxFJmzC&limit=12`)
+      return fetch(
+        `https://api.giphy.com/v1/gifs/search?q=${searchTerm}&api_key=dc6zaTOxFJmzC&limit=12`
+      )
         .then(response => response.json())
         .then(json => dispatch(receiveImages(searchTerm, json)));
     // Otherwise show GIFY trending images
     } else {
-      return fetch(`https://api.giphy.com/v1/gifs/trending?&api_key=dc6zaTOxFJmzC&limit=12`)
+      return fetch(
+        `https://api.giphy.com/v1/gifs/trending?&api_key=dc6zaTOxFJmzC&limit=12`
+      )
         .then(response => response.json())
         .then(json => dispatch(receiveImages(searchTerm, json)));
     }

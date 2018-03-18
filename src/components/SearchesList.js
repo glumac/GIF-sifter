@@ -10,8 +10,8 @@ export default class SearchesList extends React.Component {
             key={index}
             className={`search-history-li ${
               searchTerm === this.props.searchTerm
-                ? "search-history-li--current"
-                : ""
+                ? 'search-history-li--current'
+                : ''
             }`}
             onClick={event => {
               this.props.onSubmit(searchTerm);
