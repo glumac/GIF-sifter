@@ -6,7 +6,7 @@ export const ENTER_SEARCH_TERM = 'ENTER_SEARCH_TERM';
 
 // Eventually for .env file
 const GIFY_TRENDING_URL = 'https://api.giphy.com/v1/gifs/trending';
-const GIFY_SEARCH_URL = 'https://api.giphy.com/v8/gifs/search';
+const GIFY_SEARCH_URL = 'https://api.giphy.com/v1/gifs/search';
 const GIFY_API_KEY = 'dc6zaTOxFJmzC';
 const GIFY_LIMIT = 12; // # of images to be returned
 
