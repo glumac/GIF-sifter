@@ -2,10 +2,25 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { enterSearchTerm, fetchImagesIfNeeded } from '../actions';
+import styled from 'styled-components';
+import { Header } from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import SearchesList from '../components/SearchesList';
 import Images from '../components/Images';
 import { Footer } from '../components/Footer';
+
+const App = styled.div`
+  text-align: center;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+`;
+
+const Inner = styled.div`
+  max-width: 1200px;
+  padding-top: 40px;
+  margin: 0 auto;
+`;
 
 class AsyncApp extends Component {
   componentDidMount() {
@@ -28,12 +43,10 @@ class AsyncApp extends Component {
   render() {
     const { searchTerm, images, searchTerms, isFetching } = this.props;
     return (
-      <div className="app">
-        <header className="app-header">
-          <h1 className="app-title">GIF Sifter</h1>
-        </header>
+      <App>
+        <Header />
         <main>
-          <div className="inner">
+          <Inner>
             <SearchBar onSubmit={this.handleSubmit} />
 
             <SearchesList
@@ -42,19 +55,22 @@ class AsyncApp extends Component {
               onSubmit={this.handleSubmit}
             />
 
-            {isFetching && images.length === 0 && <h2>Loading...</h2>}
-            {!isFetching &&
-              images.length === 0 && <h2>Sorry, we came up empty!.</h2>}
+            <div className="images-grid-wrap">
+              {isFetching && images.length === 0 && <h2>Loading...</h2>}
 
-            {images.length > 0 && (
-              <div style={{ opacity: isFetching ? 0.5 : 1 }}>
-                <Images images={images} />
-              </div>
-            )}
-          </div>
+              {!isFetching &&
+                images.length === 0 && <h2>Sorry, we came up empty!.</h2>}
+
+              {images.length > 0 && (
+                <div style={{ opacity: isFetching ? 0.5 : 1 }}>
+                  <Images images={images} />
+                </div>
+              )}
+            </div>
+          </Inner>
         </main>
         <Footer />
-      </div>
+      </App>
     );
   }
 }

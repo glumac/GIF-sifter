@@ -1,19 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-export const Image = (props) => {
+const GridItem = styled.div`
+  display: flex;
+  align-items: center;
+  background: #efefef;
+  box-sizing: border-box;
+`;
+
+const Video = styled.video`
+  width: 100%;
+  background-color: #222;
+`;
+
+export const Image = props => {
   return (
-    <div className="images-grid-item">
-      <video
-        className="images-grid-item--image"
+    <GridItem>
+      <Video
+        onLoad={this.imgLoaded}
         src={props.imageData.images.looping.mp4}
         type="video/mp4"
         autoPlay
         loop
       />
-    </div>
+    </GridItem>
   );
-}
+};
 
 Image.propTypes = {
   imageData: PropTypes.object.isRequired
