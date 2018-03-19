@@ -3,62 +3,62 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { enterSearchTerm, fetchImagesIfNeeded } from '../actions';
 import { withRouter } from 'react-router-dom';
-import styled from 'styled-components';
-import { Header } from '../components/Header';
-import SearchBar from '../components/SearchBar';
-import SearchesList from '../components/SearchesList';
-import Images from '../components/Images';
-import { Footer } from '../components/Footer';
-
-const AppContainer = styled.div`
-  text-align: center;
-  min-height: 100vh;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-`;
-
-const Inner = styled.div`
-  max-width: 1200px;
-  padding-top: 40px;
-  margin: 0 auto;
-`;
+import Header from '../components/header';
+import SearchBar from '../components/searchBar';
+import SearchesList from '../components/searchesList';
+import Images from '../components/images';
+import Footer from '../components/footer';
+import { AppContainer, Inner } from './styles';
 
 class App extends Component {
+  static propTypes = {
+    searchTerm: PropTypes.string.isRequired,
+    images: PropTypes.array.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    enterSearchTerm: PropTypes.func.isRequired,
+    fetchImagesIfNeeded: PropTypes.func.isRequired
+  };
+
+  urlSearchTerm = () => {
+    const { match: { params: { searchterm } } } = this.props;
+    return searchterm;
+  };
+
   componentDidMount() {
-    const urlSearchTerm = this.props.match.params.searchterm;
-    const { dispatch } = this.props;
-
-    const searchTerm = urlSearchTerm ? urlSearchTerm : this.props.searchTerm;
-
-    dispatch(enterSearchTerm(searchTerm));
-    dispatch(fetchImagesIfNeeded(searchTerm));
+    const urlSearchTerm = this.urlSearchTerm();
+    const searchTerm = urlSearchTerm || this.props.searchTerm;
+    const { enterSearchTerm, fetchImagesIfNeeded } = this.props;
+    enterSearchTerm(searchTerm);
+    fetchImagesIfNeeded(searchTerm);
   }
 
   componentDidUpdate(prevProps) {
     const urlSearchTerm = this.props.match.params.searchterm;
 
-    // If updated because of user going back or foward in browser
-    if (urlSearchTerm && this.props.searchTerm !== urlSearchTerm) {
-      this.props.dispatch(enterSearchTerm(urlSearchTerm));
-      this.props.dispatch(fetchImagesIfNeeded(urlSearchTerm));
-    }
-
-    if (this.props.searchTerm !== prevProps.searchTerm) {
-      const { dispatch, searchTerm } = this.props;
-      dispatch(fetchImagesIfNeeded(searchTerm));
+    // If updated because of user going back or forward in browser
+    if (
+      (typeof urlSearchTerm === 'undefined' && this.props.searchTerm.length) ||
+      (urlSearchTerm && this.props.searchTerm !== urlSearchTerm)
+    ) {
+      const { enterSearchTerm, fetchImagesIfNeeded } = this.props;
+      enterSearchTerm(urlSearchTerm);
+      fetchImagesIfNeeded(urlSearchTerm);
+    } else if (this.props.searchTerm !== prevProps.searchTerm) {
+      const { fetchImagesIfNeeded, searchTerm } = this.props;
+      fetchImagesIfNeeded(searchTerm);
     }
   }
 
   handleSubmit = nextsearchTerm => {
-    if (this.props.match.params.searchterm !== nextsearchTerm)
+    if (this.urlSearchTerm() !== nextsearchTerm)
       if (nextsearchTerm) {
         this.props.history.push(`/search/${nextsearchTerm}`);
       } else {
         this.props.history.push(`/trending`);
       }
 
-    this.props.dispatch(enterSearchTerm(nextsearchTerm));
-    this.props.dispatch(fetchImagesIfNeeded(nextsearchTerm));
+    enterSearchTerm(nextsearchTerm);
+    fetchImagesIfNeeded(nextsearchTerm);
   };
 
   render() {
@@ -96,13 +96,6 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
-  searchTerm: PropTypes.string.isRequired,
-  images: PropTypes.array.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired
-};
-
 function mapStateToProps(state) {
   const { searchTerm, imagesBySearchTerm, searchTerms } = state;
   const { isFetching, items: images } = imagesBySearchTerm[searchTerm] || {
@@ -118,4 +111,11 @@ function mapStateToProps(state) {
   };
 }
 
-export default withRouter(connect(mapStateToProps)(App));
+function mapDispatchToProps(dispatch) {
+  return {
+    enterSearchTerm: searchTerm => dispatch(enterSearchTerm(searchTerm)),
+    fetchImagesIfNeeded: searchTerm => dispatch(fetchImagesIfNeeded(searchTerm))
+  };
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

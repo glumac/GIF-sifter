@@ -1,48 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
+import { Foot, BuiltInfo, FolioLink, Github } from './styles';
 
-const Foot = styled.footer`
-  padding: 30px 0;
-  background: #222;
-  color: #fff;
-
-  @media screen and (max-width: 500px) {
-    display: flex;
-    padding: 0 0 5px;
-    justify-content: center;
-  }
-`;
-
-const BuiltInfo = styled.span`
-  font-size: 13px;
-`;
-
-const FolioLink = styled.a`
-  color: rgb(190, 193, 212);
-  text-decoration: none;
-
-  &:hover {
-    color: #fff;
-  }
-`;
-
-const Github = styled.svg`
-  width: 25px;
-  display: block;
-  margin: 20px auto 0;
-  fill: rgb(190, 193, 212);
-  transition: all 0.25s ease-out;
-
-  &:hover {
-    color: #fff;
-  }
-
-  @media screen and (max-width: 500px) {
-    width: 19px;
-  }
-`;
-
-export const Footer = props => {
+const Footer = props => {
   return (
     <Foot>
       <BuiltInfo>
@@ -62,3 +21,5 @@ export const Footer = props => {
     </Foot>
   );
 };
+
+export default Footer

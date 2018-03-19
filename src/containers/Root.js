@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import configureStore from '../configureStore';
-import { NotFound } from '../components/NotFound';
+import NotFound from '../components/notFound';
 import App from './App';
 
 const store = configureStore();

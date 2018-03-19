@@ -4,7 +4,9 @@ import { ENTER_SEARCH_TERM, REQUEST_IMAGES, RECEIVE_IMAGES } from './actions';
 function searchTerm(state = '', action) {
   switch (action.type) {
     case ENTER_SEARCH_TERM:
-      return action.searchTerm;
+      const searchTerm = action.searchTerm ? action.searchTerm : '';
+
+      return searchTerm;
     default:
       return state;
   }
@@ -48,7 +50,7 @@ function images(
       return {
         ...state,
         isFetching: false,
-  
+
         items: action.images
       };
     default:

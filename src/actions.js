@@ -28,7 +28,7 @@ function receiveImages(searchTerm, json) {
   return {
     type: RECEIVE_IMAGES,
     searchTerm,
-    images: json.data.map(image => image)
+    images: json.data
   };
 }
 
