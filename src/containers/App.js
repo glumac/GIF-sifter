@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { enterSearchTerm, fetchImagesIfNeeded } from '../actions';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { Header } from '../components/Header';
 import SearchBar from '../components/SearchBar';
@@ -9,7 +10,7 @@ import SearchesList from '../components/SearchesList';
 import Images from '../components/Images';
 import { Footer } from '../components/Footer';
 
-const App = styled.div`
+const AppContainer = styled.div`
   text-align: center;
   min-height: 100vh;
   display: grid;
@@ -22,13 +23,26 @@ const Inner = styled.div`
   margin: 0 auto;
 `;
 
-class AsyncApp extends Component {
+class App extends Component {
   componentDidMount() {
-    const { dispatch, searchTerm } = this.props;
+    const urlSearchTerm = this.props.match.params.searchterm;
+    const { dispatch } = this.props;
+
+    const searchTerm = urlSearchTerm ? urlSearchTerm : this.props.searchTerm;
+
+    dispatch(enterSearchTerm(searchTerm));
     dispatch(fetchImagesIfNeeded(searchTerm));
   }
 
   componentDidUpdate(prevProps) {
+    const urlSearchTerm = this.props.match.params.searchterm;
+
+    // If updated because of user going back or foward in browser
+    if (urlSearchTerm && this.props.searchTerm !== urlSearchTerm) {
+      this.props.dispatch(enterSearchTerm(urlSearchTerm));
+      this.props.dispatch(fetchImagesIfNeeded(urlSearchTerm));
+    }
+
     if (this.props.searchTerm !== prevProps.searchTerm) {
       const { dispatch, searchTerm } = this.props;
       dispatch(fetchImagesIfNeeded(searchTerm));
@@ -36,6 +50,9 @@ class AsyncApp extends Component {
   }
 
   handleSubmit = nextsearchTerm => {
+    if (this.props.match.params.searchterm !== nextsearchTerm)
+      this.props.history.push(`/search/${nextsearchTerm}`);
+
     this.props.dispatch(enterSearchTerm(nextsearchTerm));
     this.props.dispatch(fetchImagesIfNeeded(nextsearchTerm));
   };
@@ -43,7 +60,7 @@ class AsyncApp extends Component {
   render() {
     const { searchTerm, images, searchTerms, isFetching } = this.props;
     return (
-      <App>
+      <AppContainer>
         <Header />
         <main>
           <Inner>
@@ -70,12 +87,12 @@ class AsyncApp extends Component {
           </Inner>
         </main>
         <Footer />
-      </App>
+      </AppContainer>
     );
   }
 }
 
-AsyncApp.propTypes = {
+App.propTypes = {
   searchTerm: PropTypes.string.isRequired,
   images: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
@@ -97,4 +114,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(AsyncApp);
+export default withRouter(connect(mapStateToProps)(App));

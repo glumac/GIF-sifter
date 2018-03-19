@@ -38,13 +38,17 @@ function fetchImages(searchTerm) {
 
     // Get images by searchTerm if we have one
     if (searchTerm) {
-      return fetch(`${GIFY_SEARCH_URL}?q=${searchTerm}&api_key=${GIFY_API_KEY}&limit=${GIFY_LIMIT}`)
+      return fetch(
+        `${GIFY_SEARCH_URL}?q=${searchTerm}&api_key=${GIFY_API_KEY}&limit=${GIFY_LIMIT}`
+      )
         .then(response => response.json())
         .catch(error => console.error('Error:', error))
         .then(json => dispatch(receiveImages(searchTerm, json)));
-    // Otherwise show GIFY trending images
+      // Otherwise show GIFY trending images
     } else {
-      return fetch(`${GIFY_TRENDING_URL}?&api_key=${GIFY_API_KEY}&limit=${GIFY_LIMIT}`)
+      return fetch(
+        `${GIFY_TRENDING_URL}?&api_key=${GIFY_API_KEY}&limit=${GIFY_LIMIT}`
+      )
         .then(response => response.json())
         .catch(error => console.error('Error:', error))
         .then(json => dispatch(receiveImages(searchTerm, json)));
@@ -54,6 +58,7 @@ function fetchImages(searchTerm) {
 
 function shouldFetchImages(state, searchTerm) {
   const images = state.imagesBySearchTerm[searchTerm];
+
   if (!images) {
     return true;
   } else {
