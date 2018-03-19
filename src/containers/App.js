@@ -51,7 +51,11 @@ class App extends Component {
 
   handleSubmit = nextsearchTerm => {
     if (this.props.match.params.searchterm !== nextsearchTerm)
-      this.props.history.push(`/search/${nextsearchTerm}`);
+      if (nextsearchTerm) {
+        this.props.history.push(`/search/${nextsearchTerm}`);
+      } else {
+        this.props.history.push(`/trending`);
+      }
 
     this.props.dispatch(enterSearchTerm(nextsearchTerm));
     this.props.dispatch(fetchImagesIfNeeded(nextsearchTerm));
