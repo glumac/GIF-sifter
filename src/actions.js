@@ -5,10 +5,10 @@ export const RECEIVE_IMAGES = 'RECEIVE_IMAGES';
 export const ENTER_SEARCH_TERM = 'ENTER_SEARCH_TERM';
 
 // Eventually for .env file
-const GIFY_TRENDING_URL = 'https://api.giphy.com/v1/gifs/trending';
-const GIFY_SEARCH_URL = 'https://api.giphy.com/v1/gifs/search';
-const GIFY_API_KEY = 'dc6zaTOxFJmzC';
-const GIFY_LIMIT = 12; // # of images to be returned
+const GIPHY_TRENDING_URL = 'https://api.giphy.com/v1/gifs/trending';
+const GIPHY_SEARCH_URL = 'https://api.giphy.com/v1/gifs/search';
+const GIPHY_API_KEY = 'dc6zaTOxFJmzC';
+const GIPHY_LIMIT = 12; // # of images to be returned
 
 export function enterSearchTerm(searchTerm) {
   return {
@@ -39,15 +39,15 @@ function fetchImages(searchTerm) {
     // Get images by searchTerm if we have one
     if (searchTerm) {
       return fetch(
-        `${GIFY_SEARCH_URL}?q=${searchTerm}&api_key=${GIFY_API_KEY}&limit=${GIFY_LIMIT}`
+        `${GIPHY_SEARCH_URL}?q=${searchTerm}&api_key=${GIPHY_API_KEY}&limit=${GIPHY_LIMIT}`
       )
         .then(response => response.json())
         .catch(error => console.error('Error:', error))
         .then(json => dispatch(receiveImages(searchTerm, json)));
-      // Otherwise show GIFY trending images
+      // Otherwise show GIPHY trending images
     } else {
       return fetch(
-        `${GIFY_TRENDING_URL}?&api_key=${GIFY_API_KEY}&limit=${GIFY_LIMIT}`
+        `${GIPHY_TRENDING_URL}?&api_key=${GIPHY_API_KEY}&limit=${GIPHY_LIMIT}`
       )
         .then(response => response.json())
         .catch(error => console.error('Error:', error))

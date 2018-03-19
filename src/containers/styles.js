@@ -12,3 +12,12 @@ export const Inner = styled.section`
   padding-top: 40px;
   margin: 0 auto;
 `;
+
+export const Message = styled.section`
+  font-family: 'Monoton', cursive;
+  font-size: 2em;
+  line-height: 1;
+  color: #cdcdcd;
+  margin-top: 5rem;
+  font-weight: 100;
+`;

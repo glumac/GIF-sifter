@@ -8,7 +8,7 @@ import SearchBar from '../components/searchBar';
 import SearchesList from '../components/searchesList';
 import Images from '../components/images';
 import Footer from '../components/footer';
-import { AppContainer, Inner } from './styles';
+import { AppContainer, Inner, Message } from './styles';
 
 class App extends Component {
   static propTypes = {
@@ -17,11 +17,6 @@ class App extends Component {
     isFetching: PropTypes.bool.isRequired,
     enterSearchTerm: PropTypes.func.isRequired,
     fetchImagesIfNeeded: PropTypes.func.isRequired
-  };
-
-  urlSearchTerm = () => {
-    const { match: { params: { searchterm } } } = this.props;
-    return searchterm;
   };
 
   componentDidMount() {
@@ -48,6 +43,11 @@ class App extends Component {
       fetchImagesIfNeeded(searchTerm);
     }
   }
+
+  urlSearchTerm = () => {
+    const { match: { params: { searchterm } } } = this.props;
+    return searchterm;
+  };
 
   handleSubmit = nextsearchTerm => {
     if (this.urlSearchTerm() !== nextsearchTerm)
@@ -77,10 +77,13 @@ class App extends Component {
             />
 
             <div className="images-grid-wrap">
-              {isFetching && images.length === 0 && <h2>Loading...</h2>}
+              {isFetching &&
+                images.length === 0 && <Message>Loading...</Message>}
 
               {!isFetching &&
-                images.length === 0 && <h2>Sorry, we came up empty!.</h2>}
+                images.length === 0 && (
+                  <Message>Sorry, we came up empty!</Message>
+                )}
 
               {images.length > 0 && (
                 <div style={{ opacity: isFetching ? 0.5 : 1 }}>
