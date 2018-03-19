@@ -8,7 +8,7 @@ This meme search web app was created with `create-react-app` and customized from
 
 It uses React, Redux with Thunk middleware (https://github.com/gaearon/redux-thunk) for state management, Routing is handled through React Router (https://github.com/ReactTraining/react-router).
 
-React components styles are attached using Styled Components (https://github.com/styled-components/styled-components. No CSS library or framework is used - layout is handled with modern CSS including Grid and Flexbox.
+React components styles are attached using Styled Components (https://github.com/styled-components/styled-components). Layout is handled with modern CSS including Grid and Flexbox.
 
 To run the app locally, simply enter `npm run start`.
 
